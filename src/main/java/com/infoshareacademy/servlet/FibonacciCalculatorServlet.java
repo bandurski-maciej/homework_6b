@@ -48,13 +48,20 @@ public class FibonacciCalculatorServlet extends HttpServlet {
     resp.setContentType("text/html;charset=UTF-8");
     PrintWriter writer = resp.getWriter();
     Map<String, Object> dataModel = new HashMap<>();
-
-    Long number = Long.valueOf(req.getParameter("number"));
     String resultTemplate;
 
-    if (number < 0) {
+    if (req.getParameter("number").contains(".")) {
+
       resultTemplate = "fibonacci-wrong-number.ftlh";
-    } else {
+
+    } else if (Integer.parseInt(req.getParameter("number")) < 0) {
+
+      resultTemplate = "fibonacci-wrong-number.ftlh";
+
+    }
+
+    else {
+      Long number = Long.valueOf(req.getParameter("number"));
       dataModel.put("fibonacci_list", fibonacciService.calculateFibonacci(number));
       dataModel.put("element", fibonacciService.calculateFibonacci(number).toArray()[Integer.parseInt(req.getParameter("number")) - 1]);
       resultTemplate = "fibonacci-result.ftlh";
