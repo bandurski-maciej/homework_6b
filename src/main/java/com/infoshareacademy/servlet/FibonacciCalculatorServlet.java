@@ -50,7 +50,7 @@ public class FibonacciCalculatorServlet extends HttpServlet {
     Map<String, Object> dataModel = new HashMap<>();
     String resultTemplate;
 
-    if (req.getParameter("number").contains(".") || !req.getParameter("number").matches(".*\\d.*")) {
+    if (req.getParameter("number").contains(".") || !req.getParameter("number").matches("[0-9]")) {
 
       resultTemplate = "fibonacci-wrong-number.ftlh";
 
@@ -63,7 +63,7 @@ public class FibonacciCalculatorServlet extends HttpServlet {
     else {
       Long number = Long.valueOf(req.getParameter("number"));
       dataModel.put("fibonacci_list", fibonacciService.calculateFibonacci(number));
-      dataModel.put("element", fibonacciService.calculateFibonacci(number).toArray()[Integer.parseInt(req.getParameter("number")) - 1]);
+      dataModel.put("element", fibonacciService.calculateFibonacciElement(fibonacciService.calculateFibonacci(number)));
       resultTemplate = "fibonacci-result.ftlh";
     }
 

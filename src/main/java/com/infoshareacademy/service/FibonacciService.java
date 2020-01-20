@@ -10,25 +10,28 @@ public class FibonacciService {
   public List<Long> calculateFibonacci(Long number) {
 
     List<Long> list = new ArrayList<>();
-    Long a = Long.valueOf("0");
-    Long b = Long.valueOf("1");
-    Long c;
+    long a = Long.parseLong("0");
+    long b = Long.parseLong("1");
+    long c;
 
-    Long counter = Long.valueOf("1");
+    long counter = Long.parseLong("1");
     list.add(a);
 
     while (counter < number) {
 
       c = a + b;
-      list.add(c);
       a = b;
       b = c;
 
+      list.add(c);
       counter += 1;
 
     }
-
     return list;
   }
 
+  public Long calculateFibonacciElement(List<Long> list) {
+
+    return list.stream().reduce((long) 0, Long::sum);
+  }
 }
